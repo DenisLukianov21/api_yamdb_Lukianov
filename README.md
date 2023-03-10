@@ -20,19 +20,27 @@
 
 - Клонируйте репозиторий
 ```
-git@github.com:DenisLukianov21/api_yamdb.git  
+git@github.com:DenisLukianov21/infra_sp2.git
 ```
 - Установите и активируйте виртуальное окружение
+```
+python3 -m venv venv
+source /venv/bin/activate
+```
 
 - Установите зависимости из файла requirements.txt
 
 ``` pip install -r requirements.txt ```
 
-- Выполните миграции
+- Перейдите в папку с файлом docker-compose.yaml и запустите контейнеры
 
-- В папке с файлом manage.py выполните команду:
-
-``` python3 manage.py runserver ```
+``` docker-compose up -d --build ```
+- Выполните миграции и создайте суперпользователя
+```
+docker-compose exec web python manage.py makemigrations
+docker-compose exec web python manage.py migrate
+docker-compose exec web python manage.py createsuperuser
+```
 
 # Импорт из CSV
 
@@ -53,6 +61,17 @@ git@github.com:DenisLukianov21/api_yamdb.git
 - Simple-JWT
 
 - PostreSQL
+
+- Docker
+
+# Шаблон наполнения .env
+```
+DB_NAME=postgres
+POSTGRES_USER=postgres
+POSTGRES_PASSWORD=postgres
+DB_HOST=db
+DB_PORT=5432
+```
 
 # Документация к проекту
 
